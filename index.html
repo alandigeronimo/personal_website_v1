@@ -4,9 +4,149 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Personal Website</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=pub1" />
   </head>
   <body>
-    <script src="script.js"></script>
+    <header class="site-header">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="journey.html">Journey</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-photo">
+        <img src="assets/images/home/roys-peak.jpg" alt="Alan standing on the summit of Roy's Peak with arms outstretched" />
+        <div class="hero-photo-caption">
+          <p class="hero-photo-descriptor">Currently exploring opportunities across finance, AI, and entrepreneurship</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <header class="section-intro">
+        <p class="section-label">01 / THE STORY</p>
+        <h2 class="section-title">A little about me.</h2>
+      </header>
+
+      <div class="bento-grid">
+        <article class="card card-from">
+          <h2>My Roots</h2>
+          <p>
+            I was born and raised in Montclair, NJ. My dad is an investment
+            professional, and my mom was a teacher before staying home to raise my
+            younger brother and me. Growing up, I spent summers exploring the
+            outdoors with my family in Vermont, enjoyed the methodical process of
+            folding intricate origami and building elaborate LEGO creations, and
+            channeled my competitive energy into ice hockey. I've always loved
+            working through complex challenges to achieve tangible results, one
+            step at a time.
+          </p>
+        </article>
+
+        <article class="card card-done">
+          <h2>The Road So Far</h2>
+          <p>
+            My entrepreneurial spirit emerged in high school when I began
+            reselling limited-edition sneakers and apparel for profit. In college,
+            I majored in finance and helped launch a beverage startup. After
+            graduating, I spent two years as an investment banker, developing a
+            deeper understanding of what drives business growth, and value
+            creation.
+          </p>
+          <p class="work-cta">
+            <a href="work.html">Explore My Work <span aria-hidden="true">→</span></a>
+          </p>
+        </article>
+
+        <article class="card card-exploring">
+          <h2>What's Next</h2>
+          <p>
+            After advising businesses on complex transactions, I traded
+            spreadsheets for a suitcase and spent a year traveling the world.
+            Along the way, I gained new perspectives and reflected on what I
+            wanted to pursue next. Now based in NYC, I'm exploring opportunities
+            across finance, AI, and entrepreneurship.
+          </p>
+        </article>
+
+        <article class="card card-outside">
+          <h2>Off the Clock</h2>
+          <p>
+            Outside of work, you'll find me training for another triathlon,
+            hiking somewhere with a view, trying new restaurants, enjoying live
+            music with friends, 3D printing gadgets, or planning my next
+            adventure.
+          </p>
+        </article>
+
+        <header class="section-intro section-intro-currently">
+          <p class="section-label">02 / CURRENTLY</p>
+          <h2 class="section-title">A few things I'm into.</h2>
+        </header>
+
+        <article class="card card-listening">
+          <h2 class="card-heading">
+            <img class="brand-icon" src="assets/images/icons/spotify.svg" alt="" />
+            On Repeat
+          </h2>
+          <div class="overlay-scroll">
+            <div class="song-list" id="song-list" tabindex="0" role="region" aria-label="On Repeat"></div>
+            <div class="overlay-scrollbar" aria-hidden="true">
+              <div class="overlay-scrollbar-thumb"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-eating">
+          <h2 class="card-heading">
+            <img class="brand-icon" src="assets/images/icons/beli.png" alt="" />
+            Good Eats
+          </h2>
+          <div class="overlay-scroll">
+            <div class="restaurant-list" id="restaurant-list" tabindex="0" role="region" aria-label="Good Eats"></div>
+            <div class="overlay-scrollbar" aria-hidden="true">
+              <div class="overlay-scrollbar-thumb"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-reading">
+          <h2 class="card-heading">
+            <img class="brand-icon" src="assets/images/icons/goodreads.png" alt="" />
+            On My Bookshelf
+          </h2>
+          <div class="overlay-scroll">
+            <div class="book-list" id="book-list" tabindex="0" role="region" aria-label="On My Bookshelf"></div>
+            <div class="overlay-scrollbar" aria-hidden="true">
+              <div class="overlay-scrollbar-thumb"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-watching">
+          <h2 class="card-heading">
+            <img class="brand-icon" src="assets/images/icons/youtube-classic.png" alt="" />
+            My Watchlist
+          </h2>
+          <div class="overlay-scroll">
+            <div class="poster-grid" id="poster-grid" tabindex="0" role="region" aria-label="My Watchlist"></div>
+            <div class="overlay-scrollbar" aria-hidden="true">
+              <div class="overlay-scrollbar-thumb"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <script src="assets/data/personal/songs.js?v=songorder"></script>
+    <script src="assets/data/personal/books.js?v=gr1"></script>
+    <script src="assets/data/personal/watching.js?v=imdb"></script>
+    <script src="assets/data/personal/restaurants.js?v=eatrank"></script>
+    <script src="script.js?v=qc1"></script>
   </body>
 </html>

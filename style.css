@@ -1,1 +1,2705 @@
-/* Styles for the website go here. */
+:root {
+  /* Color system */
+  --color-bg: #ffffff;
+  --color-card: #f7f7f7;
+  --color-text: #222222;
+  --color-text-muted: #555555;
+  --color-text-subtle: #666666;
+  --color-border: #e5e5e5;
+
+  /* Accent: nav underline and link / button hover. Change it here. */
+  --accent: #2563eb;
+
+  /* Typography */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --text-body: 0.9375rem; /* 15px */
+  --text-small: 0.875rem; /* 14px */
+  --text-label: 0.8125rem;
+  --text-heading: 2.75rem;
+  --leading-body: 1.65;
+  --leading-heading: 1.15;
+
+  /* Shape */
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  /* Centered content column (~1050px). Side padding never goes below 24px. */
+  --content-max: 1050px;
+  --side-space: max(24px, calc((100% - var(--content-max)) / 2));
+}
+
+@media (min-width: 700px) {
+  :root {
+    --side-space: max(48px, calc((100% - var(--content-max)) / 2));
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.site-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 72px;
+  padding: 0 var(--side-space);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.nav-links a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--color-text);
+  background-color: transparent;
+  cursor: pointer;
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease;
+}
+
+.nav-links a.active {
+  background-color: #e6e6e6;
+}
+
+@media (hover: hover) {
+  .nav-links a:hover {
+    background-color: #f0f0f0;
+  }
+
+  .nav-links a.active:hover {
+    background-color: #e6e6e6;
+  }
+}
+
+.nav-links a:focus-visible {
+  background-color: #f0f0f0;
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.nav-links a.active:focus-visible {
+  background-color: #e6e6e6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a {
+    transition: none;
+  }
+}
+
+.hero {
+  padding: 40px var(--side-space) 48px;
+  text-align: center;
+}
+
+/* Hero photo with text overlaid on the bottom corners */
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-card);
+}
+
+/* Crop to a wide 2:1 shape, trimming the sky from the top (keeps the person fully in view) */
+.hero-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  object-position: center 70%;
+}
+
+/* Soft dark fade at the bottom so the white text is easy to read */
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+/* Bottom-center caption: one line of text in an elegant italic serif */
+.hero-photo-caption {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+  z-index: 1;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-photo-descriptor {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.3125rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  /* Slightly taller photo on phones so the caption has room */
+  .hero-photo img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-photo-caption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .hero-photo-descriptor {
+    font-size: 1.05rem;
+  }
+}
+
+.about {
+  padding: 0 var(--side-space) 80px;
+}
+
+/* Editorial section header: small uppercase label above a large bold heading */
+.section-intro {
+  margin: 0 0 24px;
+  text-align: left;
+}
+
+.section-label {
+  margin: 0 0 8px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0;
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Bento grid: 4 equal columns. Each card is placed by name in the layout below. */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "from      from     done      done"
+    "exploring exploring outside  outside"
+    "currently currently currently currently"
+    "listening eating   reading   watching";
+  gap: 20px;
+}
+
+/* Each card claims its named spot in the grid */
+.card-from { grid-area: from; }
+.card-done { grid-area: done; }
+.card-exploring { grid-area: exploring; }
+.card-outside { grid-area: outside; }
+.card-listening { grid-area: listening; }
+.card-reading { grid-area: reading; }
+.card-watching { grid-area: watching; }
+.card-eating { grid-area: eating; }
+
+/* "02 / Currently" header sits inside the grid, on its own full-width row above the media cards */
+.bento-grid .section-intro-currently {
+  grid-area: currently;
+  margin: 36px 0 4px; /* 36px + 20px grid gap = 56px, matching space above The Story */
+}
+
+/* Quiet text link inside The Road So Far, pinned to the bottom left */
+.bento-grid .card-done {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-cta {
+  margin: auto 0 0;
+  padding-top: 16px;
+}
+
+.work-cta a {
+  display: inline-block;
+  padding: 3px 9px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.work-cta a:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .work-cta a:hover {
+    border-color: #cfcfcf;
+    color: #1a1a1a;
+  }
+}
+
+.card {
+  min-height: 200px;
+  padding: 28px;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* Home page cards: even padding, and height set by their content (no fixed minimum) */
+.bento-grid .card {
+  min-height: 0;
+  padding: 24px;
+}
+
+/* The four About Me cards: a little more room to read */
+.bento-grid .card-from,
+.bento-grid .card-done,
+.bento-grid .card-exploring,
+.bento-grid .card-outside {
+  padding: 28px;
+}
+
+/* The four "Currently" cards: all exactly the same height, lined up at the top.
+   The heading stays put, and only the list underneath scrolls (each card on its own). */
+.bento-grid .card-listening,
+.bento-grid .card-eating,
+.bento-grid .card-reading,
+.bento-grid .card-watching {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  box-sizing: border-box; /* so the height below is the card's full height, padding included */
+  height: 410px;
+  padding: 12px 20px 14px; /* tighter space above and below the heading */
+}
+
+.card-listening .card-heading,
+.card-eating .card-heading,
+.card-reading .card-heading,
+.card-watching .card-heading {
+  flex-shrink: 0;
+  justify-content: center; /* centers the icon + title together as one group */
+  gap: 8px;                /* space between the icon and the title */
+  text-align: center;
+}
+
+/* Shared overlay scroller for the four Currently cards.
+   The wrapper fills the card under the heading; the inner panel scrolls. */
+.overlay-scroll {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.overlay-scroll .song-list,
+.overlay-scroll .restaurant-list,
+.overlay-scroll .book-list,
+.overlay-scroll .poster-grid {
+  box-sizing: border-box;
+  height: 100%;
+  margin-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-gutter: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.overlay-scroll .song-list::-webkit-scrollbar,
+.overlay-scroll .restaurant-list::-webkit-scrollbar,
+.overlay-scroll .book-list::-webkit-scrollbar,
+.overlay-scroll .poster-grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Rows keep their natural size instead of being squeezed */
+.overlay-scroll .song-list > *,
+.overlay-scroll .restaurant-list > *,
+.overlay-scroll .book-list > * {
+  flex-shrink: 0;
+}
+
+.overlay-scrollbar {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 3px;
+  bottom: 8px;
+  width: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.overlay-scrollbar.is-needed {
+  pointer-events: auto;
+}
+
+.overlay-scroll:hover .overlay-scrollbar.is-needed,
+.overlay-scroll.is-scrolling .overlay-scrollbar.is-needed,
+.overlay-scrollbar.is-dragging {
+  opacity: 1;
+}
+
+.overlay-scrollbar-thumb {
+  width: 100%;
+  border-radius: 999px;
+  background-color: rgba(90, 90, 90, 0.55);
+  cursor: grab;
+}
+
+.overlay-scrollbar-thumb:active {
+  cursor: grabbing;
+  background-color: rgba(90, 90, 90, 0.75);
+}
+
+.overlay-scroll .song-list:focus-visible,
+.overlay-scroll .poster-grid:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -2px;
+}
+
+.overlay-scroll .restaurant-list:focus-visible,
+.overlay-scroll .book-list:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-scrollbar {
+    transition: none;
+  }
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Narrow desktop / large tablet: the four media cards would be too cramped in
+   one row, so they go 2 × 2 here. Everything else keeps the desktop layout. */
+@media (max-width: 1100px) {
+  .bento-grid {
+    grid-template-areas:
+      "from      from     done      done"
+      "exploring exploring outside  outside"
+      "currently currently currently currently"
+      "listening listening eating   eating"
+      "reading   reading   watching watching";
+  }
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "from      done"
+      "exploring outside"
+      "currently currently"
+      "listening eating"
+      "reading   watching";
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    height: 64px;
+  }
+
+  .nav-links {
+    gap: 2px;
+  }
+
+  .nav-links a {
+    padding: 6px 12px;
+  }
+
+  .about {
+    padding: 0 var(--side-space) 64px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* Mobile: one column. Cards stack in the order they appear in the HTML. */
+  .bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
+  }
+
+  .bento-grid .card,
+  .bento-grid .section-intro-currently {
+    grid-area: auto;
+  }
+
+  .bento-grid .section-intro-currently {
+    margin: 36px 0 4px;
+  }
+}
+
+.card p {
+  margin: 16px 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+/* The four biography cards: comfortable reading size and spacing */
+.bento-grid .card-from p,
+.bento-grid .card-done p,
+.bento-grid .card-exploring p,
+.bento-grid .card-outside p {
+  margin-top: 12px;
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+/* Very subtle hover on the biography cards: a slightly darker border and a faint shadow.
+   (No movement, and the cards are not links, so the cursor stays the same.) */
+.bento-grid .card-from:hover,
+.bento-grid .card-done:hover,
+.bento-grid .card-exploring:hover,
+.bento-grid .card-outside:hover {
+  border-color: #d2d2d2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Fade the hover in smoothly, but only for people who haven't asked for less motion */
+@media (prefers-reduced-motion: no-preference) {
+  .bento-grid .card-from,
+  .bento-grid .card-done,
+  .bento-grid .card-exploring,
+  .bento-grid .card-outside {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+}
+
+/* What I'm Listening To card */
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+}
+
+.song {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.song:hover {
+  background-color: #2a2a2a;
+}
+
+.song-art {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background-color: #3a3a3a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.song-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-button {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.song:hover .play-button,
+.play-button:focus-visible {
+  opacity: 1;
+}
+
+.play-button svg {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.song-title {
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+a.song-title:hover,
+a.song-title:focus-visible {
+  text-decoration: underline;
+}
+
+.song-artist {
+  color: #a0a0a0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+/* What I'm Reading card */
+/* Brand app icons (Spotify, Goodreads, YouTube, Beli), all 24px.
+   The faint outline keeps the white Beli icon visible on the gray card. */
+.brand-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: contain; /* never stretch or squash a logo */
+  outline: 1px solid rgba(0, 0, 0, 0.08);
+  outline-offset: -1px;
+  border-radius: 5px;
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 8px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.book:last-child {
+  border-bottom: none;
+}
+
+/* Title underline matches Good Eats restaurant-name links */
+a.book:hover .book-title,
+a.book:focus-visible .book-title {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.book-cover {
+  width: 40px;
+  height: 60px;
+  flex-shrink: 0;
+  background-color: #e5e5e5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.book-title {
+  color: #1a1a1a;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.book-author {
+  color: #666666;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+/* What I'm Watching card */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+  align-items: start;
+  gap: 6px;
+  padding: 6px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+}
+
+.poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background-color: #3a3a3a;
+  border-radius: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+a.poster:hover {
+  transform: scale(1.04);
+  filter: brightness(1.15);
+}
+
+a.poster:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.poster img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-label {
+  padding: 4px;
+  color: #a0a0a0;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster {
+    transition: none;
+  }
+
+  a.poster:hover {
+    transform: none;
+  }
+}
+
+/* Where I'm Eating card */
+.restaurant-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 6px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.restaurant {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 6px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.restaurant:last-child {
+  border-bottom: none;
+}
+
+/* Rows with a Beli link (on the photo and rating) get a light highlight */
+.restaurant-beli:hover {
+  background-color: #f7f7f7;
+}
+
+.restaurant-photo {
+  width: 64px;
+  height: 48px;
+  flex-shrink: 0;
+  background-color: #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.restaurant-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.restaurant-name {
+  color: #1a1a1a;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.restaurant-location {
+  color: #666666;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+/* The restaurant name opens Google Maps. Only the name text is clickable, and
+   the hover effect is a subtle underline. */
+.restaurant-info a {
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+.restaurant-info a:hover,
+.restaurant-info a:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1.5px solid #cccccc;
+  border-radius: 50%;
+  color: #2e9e5b;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Desktop: Listening / Reading / Watching / Eating sit side by side in four
+   narrow cards. Text wraps instead of being cut off, and the restaurant row
+   stacks (photo + rating on top, name and location below) so nothing is lost. */
+@media (min-width: 1101px) {
+  .bento-grid .card-listening,
+  .bento-grid .card-reading,
+  .bento-grid .card-watching,
+  .bento-grid .card-eating {
+    padding: 12px 20px 14px;
+  }
+
+  .song-title,
+  .song-artist,
+  .book-title,
+  .book-author,
+  .restaurant-name,
+  .restaurant-location {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .poster-label {
+    padding: 2px;
+    font-size: 0.6875rem;
+    overflow-wrap: anywhere;
+  }
+
+  .song {
+    gap: 10px;
+  }
+
+  .song-art {
+    width: 40px;
+    height: 40px;
+  }
+
+  .book {
+    gap: 10px;
+  }
+
+  .restaurant {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  .restaurant-photo {
+    order: 1;
+  }
+
+  .restaurant-rating {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .restaurant-info {
+    order: 3;
+    flex: 1 1 100%;
+  }
+}
+
+/* Where I've Been card (world map) */
+.map-header {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 14px 18px 12px;
+}
+
+.visited-count {
+  color: #666666;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Legend: small colored dots + labels, stacked, in the top-right of the map header */
+.map-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.map-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.map-legend-item[hidden] {
+  display: none;
+}
+
+.map-legend-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  background-color: #2e9e5b; /* same green as .country.visited */
+  border-radius: 50%;
+}
+
+.map-legend-dot.is-bucket {
+  background-color: #4a90d9; /* same blue as .country.bucket-list */
+}
+
+.map-container {
+  position: relative;
+  aspect-ratio: 960 / 500;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.map-container svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.map-container svg:active {
+  cursor: grabbing;
+}
+
+.country,
+.state {
+  fill: #e3e3e3;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.country:hover,
+.state:hover {
+  fill: #cfcfcf;
+}
+
+.country.visited,
+.state.visited {
+  fill: #2e9e5b;
+}
+
+.country.visited:hover,
+.state.visited:hover {
+  fill: #25804a;
+}
+
+/* Bucket-list countries: a soft blue, clearly different from the green visited countries */
+.country.bucket-list {
+  fill: #4a90d9;
+}
+
+.country.bucket-list:hover {
+  fill: #3a79ba;
+}
+
+/* The United States can be clicked to open the state map */
+.country.clickable {
+  cursor: pointer;
+}
+
+/* State map: thicker borders, and no "grab" hand since it cannot be dragged */
+.state {
+  stroke-width: 0.75;
+}
+
+.map-container svg.us-view {
+  cursor: default;
+}
+
+/* "Back to World Map" button in the top-left corner of the map (only shown on the state map) */
+.map-back {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 6px 14px;
+  background-color: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 999px;
+  color: #1a1a1a;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-back:hover {
+  background-color: #f7f7f7;
+  border-color: #1a1a1a;
+}
+
+.map-tooltip {
+  position: absolute;
+  padding: 4px 8px;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(12px, 12px);
+}
+
+.map-tooltip.visible {
+  opacity: 1;
+}
+
+/* Shared page title block: same 1050px column and top spacing on Journey, Work, Contact */
+.page-intro,
+.journey-intro {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px var(--side-space) 28px;
+  text-align: center;
+}
+
+.page-intro h1,
+.journey-intro h1 {
+  margin: 0 0 12px;
+  font-family: var(--font-serif);
+  font-size: 1.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.page-intro p,
+.journey-intro p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Contact only: heading top matches Journey/Work quotes; tighter gap before the postcard */
+.page-intro {
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+
+/* Journey-only spacing: tighter intro and a shorter step into the map */
+.journey-intro {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.journey-intro h1 {
+  margin-bottom: 8px;
+}
+
+.gallery-section {
+  padding: 0 var(--side-space) 36px;
+}
+
+.map-section .section-intro {
+  margin-bottom: 18px;
+}
+
+/* "03 / The Journey" map section, directly below the photo gallery */
+.map-section {
+  padding: 0 var(--side-space) 80px;
+}
+
+/* One clean white container: the info row on top, the map filling the rest.
+   Same width as the gallery above, because both sit in --side-space. */
+.card-map {
+  overflow: hidden;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* Photo gallery: 5 equal columns on desktop */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gallery-item {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4; /* tall portrait frames; photos fill them with object-fit: cover */
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+}
+
+.gallery-item img,
+.gallery-item .photo-placeholder {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gallery-item img {
+  display: block;
+  object-fit: cover;
+}
+
+/* Hover overlay: dark layer with country, italic location, and caption */
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 12px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.gallery-overlay-region,
+.gallery-overlay-location,
+.gallery-overlay-caption,
+.gallery-overlay-meta {
+  max-width: 100%;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+}
+
+.gallery-overlay-region {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-sans);
+  font-size: 0.625rem; /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.gallery-overlay-location {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem; /* 19px */
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.22;
+  text-wrap: balance;
+}
+
+.gallery-overlay-location.is-long {
+  font-size: 1.0625rem; /* 17px, for longer place names */
+}
+
+.gallery-overlay-caption {
+  display: block;
+  position: relative;
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 400;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.gallery-overlay-location + .gallery-overlay-caption::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 22px;
+  height: 1px;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.32);
+}
+
+.gallery-overlay-meta {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.gallery-item:focus-visible .gallery-overlay {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-overlay,
+  .gallery-item img,
+  .gallery-item .photo-placeholder {
+    transition: none;
+  }
+}
+
+.photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e5e5;
+  color: #666666;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Lightbox (the larger photo view) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 72px 48px;
+  background-color: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: min(1100px, 100%);
+}
+
+.lightbox-content img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox-content .photo-placeholder {
+  width: min(80vw, 560px);
+  max-height: calc(100vh - 200px);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+}
+
+/* Region, location, and caption under the enlarged photo */
+.lightbox-info {
+  margin-top: 16px;
+  max-width: min(640px, 100%);
+  padding: 0 12px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.lightbox-info-region {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.lightbox-info-location {
+  margin-top: 6px;
+  font-family: var(--font-serif);
+  font-size: 1.3125rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.lightbox-info-caption {
+  position: relative;
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lightbox-info-location + .lightbox-info-caption::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 22px;
+  height: 1px;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.32);
+}
+
+.lightbox-info-meta {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 2.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 2.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-prev {
+  left: 12px;
+}
+
+.lightbox-next {
+  right: 12px;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover,
+.lightbox-close:focus-visible,
+.lightbox-nav:focus-visible {
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .lightbox {
+    padding: 56px 48px 52px;
+  }
+
+  .lightbox-content img {
+    max-height: calc(100vh - 220px);
+    max-width: 100%;
+  }
+
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 2.25rem;
+  }
+
+  .lightbox-prev {
+    left: 2px;
+  }
+
+  .lightbox-next {
+    right: 2px;
+  }
+
+  .lightbox-info-location {
+    font-size: 1.125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox {
+    transition: none;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+/* Journey page on tablet and mobile: 3 columns on tablets, 2 on phones (tiles stay 3:4) */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .page-intro,
+  .journey-intro {
+    padding: 28px var(--side-space) 20px;
+  }
+
+  .page-intro {
+    padding-top: 24px;
+    padding-bottom: 12px;
+  }
+
+  .journey-intro {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .page-intro h1,
+  .journey-intro h1 {
+    font-size: 1.25rem;
+  }
+
+  .gallery-section {
+    padding: 0 var(--side-space) 36px;
+  }
+
+  .map-section {
+    padding: 0 var(--side-space) 80px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Odd leftover photo (the 15th) sits centered on its own row */
+  .gallery-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc((100% - 12px) / 2);
+    justify-self: center;
+  }
+
+  .gallery-overlay {
+    padding: 14px 10px;
+  }
+
+  .gallery-overlay-caption {
+    margin-top: 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Work page: same centered ~1050px column as Home and Journey */
+.work-section {
+  padding: 24px var(--side-space) 96px;
+}
+
+/* The tagline above the sections: centered, light italic serif, no box. */
+.work-tagline {
+  width: 100%;
+  margin: 0 auto 32px;
+  font-family: var(--font-serif);
+  font-size: 1.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.work-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin: 0;
+}
+
+/* The four chapters (Volunteering, Piper Sandler, University, High School) are the cards.
+   Padding and borders match the Home page cards. */
+.work-chapter {
+  min-height: 0;
+  padding: 28px 32px;
+  overflow-wrap: break-word;
+}
+
+.work-chapter .work-chapter-heading {
+  margin: 0 0 22px;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.work-chapter-detail {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* The entries (company, school, business) inside a chapter: separated by space, not lines */
+.work-chapter-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* With no name above it (the chapter heading already says it), the role starts at the top */
+.work-card > .work-role:first-child {
+  margin-top: 0;
+}
+
+.work-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+/* Entry titles: bold. Underline only the words that are actually a link. */
+.work-card .work-card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.work-card .work-card-header h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.work-dates {
+  color: var(--color-text-subtle);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.work-card .work-role {
+  margin-top: 2px;
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.work-card .work-location {
+  margin-top: 2px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-small);
+}
+
+/* Body text: 15px, comfortable line height, sitting under its title */
+.work-card .work-description {
+  margin-top: 8px;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* Links to outside resources (like GitHub): small white pill buttons with a subtle border */
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: var(--text-small);
+}
+
+.work-links a {
+  padding: 5px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  color: #444444;
+  line-height: 1.2;
+}
+
+/* This Website: compact GitHub repo pill (does not stretch) */
+.work-github-wrap {
+  margin-top: 10px;
+}
+
+.work-github-repo {
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  color: #222222;
+  font-size: var(--text-small);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .work-github-repo:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.work-github-repo:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .work-links a:hover {
+    border-color: #cfcfcf;
+    color: #1a1a1a;
+  }
+}
+
+/* Projects and deals inside an entry are separated by space, not lines */
+.work-projects {
+  margin-top: 16px;
+}
+
+.work-deals {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Featured banking projects sit in their own white tiles so they scan as distinct deals */
+.work-deal-group.is-featured .work-project {
+  padding: 16px 18px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+@media (hover: hover) {
+  .work-deal-group.is-featured .work-project {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .work-deal-group.is-featured .work-project:hover {
+    border-color: #d8d8d8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-deal-group.is-featured .work-project {
+    transition: none;
+  }
+}
+
+.work-deal-group.is-featured .work-deals {
+  gap: 12px;
+}
+
+.work-project + .work-project {
+  margin-top: 22px;
+}
+
+.work-deals .work-project + .work-project {
+  margin-top: 0;
+}
+
+/* Transaction type, taken from the existing title prefix (Sell-Side, Debt Financing, …) */
+.work-deal-label {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 3px 9px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.work-deal-group.is-featured .work-deal-label {
+  background-color: var(--color-card);
+}
+
+/* Deal and project titles: bold; underline only when the title is a link */
+.work-project-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.work-project-title a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.work-card .work-project-text {
+  margin-top: 8px;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* A second paragraph under the same title gets a little more room than the title-to-text gap */
+.work-card .work-description + .work-description,
+.work-card .work-project-text + .work-project-text {
+  margin-top: 6px;
+}
+
+/* Piper Sandler deals: clearer space between consecutive paragraphs, none after the last */
+.work-deal-group .work-project-text + .work-project-text {
+  margin-top: 12px;
+}
+
+/* A labeled list of deals ("Key Projects:" and "Other Publicly Disclosed Deals:").
+   No box of its own: it sits right on the card, and only the bold label and spacing set it apart. */
+.work-deal-group {
+  margin-top: 24px;
+}
+
+/* The first group right under a chapter heading needs no extra space above it */
+.work-card > .work-deal-group:first-child {
+  margin-top: 0;
+}
+
+.work-deal-group-heading {
+  margin: 0 0 12px;
+  color: var(--color-text);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* A testimonial: a soft gray box (a little darker than the card), no border or shadow */
+.work-quote {
+  margin: 28px 0 0;
+  padding: 20px 22px;
+  background-color: #ededed;
+  border-left: 3px solid #d2d2d2;
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.work-quote-text {
+  color: #333333;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.work-quote-attribution {
+  margin-top: 10px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-small);
+  font-style: normal;
+  line-height: 1.4;
+}
+
+/* Labeled lists like GPA / Honors / Leadership & Activities */
+.work-facts {
+  margin-top: 16px;
+}
+
+/* When a list sits right under an entry title (nothing in between), keep it as close as a description would be */
+.work-card-header + .work-facts {
+  margin-top: 8px;
+}
+
+.work-fact + .work-fact {
+  margin-top: 12px;
+}
+
+.work-fact-label {
+  margin: 0 0 6px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.work-fact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* Career break: small white tiles for the bigger experiences, small pills for the places */
+.work-quests {
+  margin-top: 24px;
+}
+
+.work-quest-group + .work-quest-group {
+  margin-top: 28px;
+}
+
+.work-quest-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.work-quest-tile {
+  padding: 14px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.work-quest-title {
+  color: #1a1a1a;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.work-quest-detail {
+  margin-top: 4px;
+  color: #666666;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-quest-tiles + .work-tags {
+  margin-top: 12px;
+}
+
+.work-tags li {
+  padding: 6px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  color: #444444;
+  font-size: 0.875rem;
+}
+
+/* A bulleted list: indented, with a little space between the bullets */
+.work-fact-list.has-bullets {
+  gap: 4px;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.work-fact-list.has-bullets li::marker {
+  color: #9a9a9a;
+}
+
+/* Nested bullets: a smaller step in, to show specific contributions inside a larger bullet */
+.work-fact-list.has-bullets ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 4px 0 0;
+  padding-left: 18px;
+  list-style: circle;
+}
+
+.work-fact-list strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* A linked name in an entry's title (like TwinTail Brews) */
+@media (hover: hover) {
+  .work-card-header h3 a:hover {
+    color: var(--accent);
+  }
+}
+
+/* Highlighted names (like Metcalf Prize) are bold and dark; the rest stay regular */
+.work-fact-name.is-highlight {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.work-fact-detail {
+  color: #555555;
+}
+
+/* A link inside a sentence of project text */
+.work-description a,
+.work-project-text a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .work-project-title a:hover,
+  .work-description a:hover,
+  .work-project-text a:hover {
+    color: var(--accent);
+  }
+}
+
+/* "Select Deal Experience": a subsection at the bottom of a chapter card, set off by a thin line */
+.work-deal-experience {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.work-deal-experience-heading {
+  margin: 0 0 20px;
+  color: #1a1a1a;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Deal tiles: two columns on desktop, one column when the space gets narrow */
+.work-deal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+
+.work-deal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.work-deal-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Optional company logo: a small square so every logo takes the same space */
+.work-deal-logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 6px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.work-deal-logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.work-deal-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.work-deal-company {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.work-deal-company a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Transaction type, shown as a small pill like the other tags on this page */
+.work-deal-type {
+  padding: 3px 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  color: #444444;
+  font-size: 0.8125rem;
+}
+
+/* (.card p elsewhere sets margin and size, so this rule is written to outrank it) */
+.work-deal-card .work-deal-description {
+  margin: 0;
+  color: #444444;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* Deal value sits at the bottom of the tile, so values line up when tiles are the same height */
+.work-deal-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.work-deal-value-label {
+  color: #666666;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Shown only while the list is empty */
+.work-deal-empty {
+  padding: 20px 16px;
+  border: 1px dashed #d4d4d4;
+  border-radius: 8px;
+  color: #888888;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+@media (hover: hover) {
+  .work-deal-company a:hover {
+    color: var(--accent);
+  }
+}
+
+.work-details {
+  margin-top: 12px;
+}
+
+.work-details summary {
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  /* Smaller button so it covers less of the (small) phone-size map */
+  .map-back {
+    top: 6px;
+    left: 6px;
+    padding: 3px 9px;
+    font-size: 0.6875rem;
+  }
+
+  .work-section {
+    padding: 24px var(--side-space) 80px;
+  }
+
+  .work-chapter {
+    padding: 22px 20px;
+  }
+
+  .work-chapter .work-chapter-heading {
+    font-size: 1.2rem;
+  }
+
+  .work-tagline {
+    font-size: 1.25rem;
+    margin-bottom: 28px;
+  }
+}
+
+/* Contact page: postcard */
+.contact-section {
+  padding: 0 var(--side-space) 96px;
+}
+
+/* Same 1050px column as Home, Journey, and Work */
+.postcard-wrap {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+/* The small instruction sits centered just above the postcard */
+.postcard-hint {
+  margin: 0 0 20px;
+  color: var(--color-text-subtle);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* The lift wrapper also provides the 3D "camera" (perspective) for the flip */
+.postcard-lift {
+  perspective: 1500px;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Hover effects only on devices that can hover (not touch screens) */
+@media (hover: hover) {
+  .postcard-lift:hover {
+    transform: translateY(-4px) rotate(-0.25deg);
+  }
+
+  .postcard-lift:hover .postcard-face {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* The postcard holds both sides and is the part that rotates */
+.postcard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.postcard.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Both sides sit on top of each other, and each hides itself when facing away */
+.postcard-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: box-shadow 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Front */
+/* Thin off-white border around the photo, like a printed photograph */
+.postcard-front {
+  border: 6px solid #fbfaf7;
+}
+
+.postcard-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  background-color: #c9c9c9; /* only visible if the photo file is missing */
+}
+
+.postcard-front::after {
+  /* soft dark fade at the bottom so the white text is easy to read */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 50%);
+}
+
+.postcard-phrase {
+  position: absolute;
+  left: 40px;
+  bottom: 36px;
+  z-index: 1;
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* An invisible button over the whole front: click it, or press Enter / Space, to flip */
+.flip-front-button {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.flip-front-button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -10px;
+}
+
+/* Back */
+.postcard-back {
+  background-color: #fbfaf7;
+  border: 1px solid #e4e0d7;
+  color: #2b2b2b;
+  transform: rotateY(180deg);
+}
+
+/* The form fills the whole back and is split into two halves */
+.postcard-form {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  padding: 40px 0;
+}
+
+/* Left half: the message, written on ruled lines like writing paper */
+.postcard-message {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 32px 0 40px;
+}
+
+.postcard-message textarea {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    #d8d4cb 31px,
+    #d8d4cb 32px
+  );
+  background-attachment: local;
+  border: none;
+  border-radius: 0;
+  color: #2b2b2b;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 32px;
+  resize: none;
+}
+
+.postcard-field input::placeholder {
+  color: #9a958b;
+}
+
+/* Small, light hint text that sits on the first writing line (same line height as the typed text) */
+.postcard-message textarea::placeholder {
+  color: #b5b0a6;
+  font-size: 0.875rem;
+}
+
+/* No box around the message area: the writing lines are the message area */
+.postcard-message textarea:focus,
+.postcard-message textarea:focus-visible {
+  outline: none;
+}
+
+.flip-back {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  color: #a8a39a;
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.flip-back:hover,
+.flip-back:focus-visible {
+  color: var(--accent);
+}
+
+/* Right half: a thin vertical line divides the two halves */
+.postcard-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 18px;
+  padding: 0 40px;
+  border-left: 1px solid #d8d4cb;
+}
+
+/* Name and email: just a small label above a thin writing line */
+.postcard-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.postcard-field label {
+  color: #888888;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.postcard-field input {
+  padding: 6px 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #cfcac0;
+  border-radius: 0;
+  color: #2b2b2b;
+  font: inherit;
+  font-size: 0.9375rem;
+}
+
+.postcard-field input:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 var(--accent);
+}
+
+.postcard-send {
+  align-self: flex-end;
+  padding: 12px 20px;
+  background: none;
+  border: 1px solid #2b2b2b;
+  border-radius: 4px;
+  color: #2b2b2b;
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.postcard-send:hover,
+.postcard-send:focus-visible {
+  background-color: var(--accent);
+  color: #fbfaf7;
+}
+
+.postcard-send:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.postcard-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: #888888;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.postcard-status.is-error {
+  color: #8a3a3a;
+}
+
+.postcard-status.is-success {
+  color: #3d6b4f;
+}
+
+/* Stamp in the upper-right corner (decoration only) */
+/* The stamp is a transparent PNG; only the width is set so it keeps its shape */
+.postcard-stamp {
+  position: absolute;
+  top: 34px;
+  right: 44px;
+  width: 108px;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+}
+
+/* Hides text visually but keeps it for screen readers (used for the message label) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .postcard,
+  .postcard-lift,
+  .postcard-face {
+    transition: none;
+  }
+}
+
+/* Direct contact links under the postcard */
+.direct-contact {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.direct-heading {
+  margin: 0 0 16px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.direct-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 56px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.direct-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 64px;
+  padding: 8px;
+  color: var(--color-text-subtle);
+  font-size: var(--text-small);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.direct-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.direct-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.direct-icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.direct-link:hover,
+.direct-link:focus-visible {
+  color: #2b2b2b;
+}
+
+.direct-link:hover .direct-icon-wrap,
+.direct-link:focus-visible .direct-icon-wrap {
+  border-color: #2b2b2b;
+  transform: translateY(-2px);
+}
+
+/* Desktop/tablet postcard: compact landscape card, fields sit under the stamp */
+@media (min-width: 601px) {
+  .postcard-wrap {
+    max-width: 840px;
+  }
+
+  .postcard {
+    aspect-ratio: 3 / 2;
+    width: 100%;
+    height: auto;
+  }
+
+  .postcard-fields {
+    justify-content: flex-start;
+    padding-top: 144px;
+  }
+}
+
+/* Contact page on phones: keep the landscape card, with tighter two-column internals */
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 0 18px 80px;
+  }
+
+  /* Keep the real landscape postcard shape; do not stretch it tall */
+  .postcard {
+    aspect-ratio: 3 / 2;
+    width: 100%;
+    height: auto;
+  }
+
+  .postcard-photo {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .postcard-phrase {
+    left: 16px;
+    bottom: 14px;
+    font-size: 0.95rem;
+  }
+
+  /* Landscape back: slightly wider message column, even field spacing */
+  .postcard-form {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: none;
+    padding: 6px 0 4px;
+  }
+
+  .postcard-message {
+    padding: 0 8px 0 10px;
+  }
+
+  .postcard-message textarea {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    font-size: 0.75rem;
+    line-height: 18px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 17px,
+      #d8d4cb 17px,
+      #d8d4cb 18px
+    );
+  }
+
+  .postcard-message textarea::placeholder {
+    font-size: 0.75rem;
+    line-height: 18px;
+  }
+
+  .flip-back {
+    flex-shrink: 0;
+    margin-top: 2px;
+    padding: 4px 0 2px;
+  }
+
+  .postcard-fields {
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 0;
+    padding: 34px 10px 4px 10px;
+    border-left: 1px solid #d8d4cb;
+    border-top: none;
+  }
+
+  .postcard-field {
+    gap: 2px;
+  }
+
+  .postcard-field label {
+    font-size: 0.625rem;
+    line-height: 1.2;
+  }
+
+  .postcard-field input {
+    padding: 4px 0 3px;
+    font-size: 0.8125rem;
+  }
+
+  .postcard-status {
+    min-height: 0;
+    margin: 0;
+    font-size: 0.5625rem;
+    line-height: 1.2;
+  }
+
+  .postcard-stamp {
+    top: 5px;
+    right: 6px;
+    width: 28px;
+  }
+
+  .postcard-send {
+    margin-top: 2px;
+    padding: 3px 7px;
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+  }
+
+  .direct-contact {
+    margin-top: 32px;
+  }
+
+  /* Keep Email, LinkedIn, and GitHub in one centered row on phones */
+  .direct-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px 28px;
+    max-width: none;
+    margin: 0 auto;
+  }
+}

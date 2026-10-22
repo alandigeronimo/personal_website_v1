@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Journey | Alan Di Geronimo</title>
+    <link rel="stylesheet" href="style.css?v=pub1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="journey.html" class="active">Journey</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Page introduction: edit the heading and sentence below to change the text -->
+    <section class="journey-intro">
+      <h1>Life begins at the end of your comfort zone.</h1>
+      <p>I've always believed travel is the spice of life. From new places to unexpected experiences, there's always more to explore.</p>
+    </section>
+
+    <!-- The photos are added here by journey.js, using assets/data/personal/adventures.js?v=t100 -->
+    <section class="gallery-section">
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- Interactive travel map. It is drawn by map.js, using the data files loaded below. -->
+    <section class="map-section" id="map">
+      <header class="section-intro">
+        <p class="section-label">03 / THE JOURNEY</p>
+        <h2 class="section-title">The places I've been.</h2>
+      </header>
+
+      <article class="card-map">
+        <div class="map-header">
+          <!-- Legend: each dot uses the same color as those countries on the map -->
+          <span class="map-legend">
+            <span class="map-legend-item">
+              <span class="map-legend-dot" aria-hidden="true"></span>
+              <span id="map-legend-text">Countries Explored</span>
+            </span>
+            <span class="map-legend-item" id="map-legend-bucket">
+              <span class="map-legend-dot is-bucket" aria-hidden="true"></span>
+              On My Bucket List
+            </span>
+          </span>
+          <span class="visited-count" id="visited-count" hidden></span>
+        </div>
+        <div class="map-container" id="map-container">
+          <div class="map-tooltip" id="map-tooltip"></div>
+          <!-- Shown only on the U.S. state map (see map.js) -->
+          <button class="map-back" id="map-back" type="button" hidden>&larr; Back to World Map</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Lightbox: hidden until a photo is clicked -->
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photo">
+        &times;
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photo">
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+      <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="Next photo">
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+      <div class="lightbox-content" id="lightbox-content"></div>
+      <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+
+    <script src="assets/data/personal/adventures.js?v=journal5"></script>
+    <script src="journey.js?v=wrap1"></script>
+
+    <!-- D3 draws the map. TopoJSON Client converts the map data into shapes D3 can draw.
+         Both libraries are saved in assets/vendor, so the map also works without internet. -->
+    <script src="assets/vendor/d3.min.js"></script>
+    <script src="assets/vendor/topojson-client.min.js"></script>
+    <script src="assets/data/map/world-110m.js"></script>
+    <script src="assets/data/map/us-states-10m.js"></script>
+    <script src="assets/data/personal/visited-countries.js"></script>
+    <script src="assets/data/personal/bucket-list-countries.js?v=norway"></script>
+    <script src="assets/data/personal/visited-states.js"></script>
+    <script src="map.js"></script>
+  </body>
+</html>
