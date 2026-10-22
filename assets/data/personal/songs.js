@@ -13,13 +13,13 @@ const songs = [
     title: "Is This Love",
     artist: "Bob Marley & The Wailers",
     image: "assets/images/songs/is-this-love.jpg",
-    spotifyUrl: ""
+    spotifyUrl: "https://open.spotify.com/track/6eokVph5Yty6I3NnleHgmm"
   },
   {
     title: "Billie Jean",
     artist: "Michael Jackson",
     image: "assets/images/songs/billie-jean.jpg",
-    spotifyUrl: ""
+    spotifyUrl: "https://open.spotify.com/track/5ChkMS8OtdzJeqyybCc9R5"
   },
   {
     title: "Dunes of Djoser",
