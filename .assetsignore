@@ -1,0 +1,20 @@
+# Git metadata
+.git
+.gitignore
+
+# Local environment and logs
+.wrangler
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+
+# Deployment configuration
+wrangler.jsonc
+wrangler.toml
+.assetsignore
+
+# Not part of the public site
+.nojekyll
+README.md
