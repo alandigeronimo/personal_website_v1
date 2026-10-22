@@ -34,13 +34,13 @@ const adventures = [
   // Row 2
   { image: "assets/images/adventures/hobbiton.jpg", alt: "At Hobbiton, New Zealand", region: "New Zealand", location: "Hobbiton", caption: "Turns out the Shire is just as magical in real life", date: "" },
   { image: "assets/images/adventures/safari-elephant.jpg", alt: "On a safari with an elephant in the background", position: "40% center", region: "South Africa", location: "Kruger National Park", caption: "Hard to describe the feeling of seeing these animals in the wild", date: "" },
-  { image: "assets/images/adventures/golden-bridge.jpg", alt: "On the Golden Bridge in Vietnam", region: "Vietnam", location: "Bà Nà Hills", caption: "A bridge that's quite literally in good hands.", date: "" },
+  { image: "assets/images/adventures/golden-bridge.jpg", alt: "On the Golden Bridge in Vietnam", region: "Vietnam", location: "Bà Nà Hills", caption: "A bridge that's quite literally in good hands", date: "" },
   { image: "assets/images/adventures/california-lake.jpg", alt: "Sitting above an alpine lake in California", region: "California, USA", location: "Rock Creek Lake", caption: "A few days off the grid in one of my favorite places", date: "" },
   { image: "assets/images/adventures/koala.jpg", alt: "Holding a koala in Australia", position: "center 30%", region: "Australia", location: "Currumbin Wildlife Sanctuary", caption: "Just hanging out with the locals", date: "" },
   // Row 3
   { image: "assets/images/adventures/mount-cook.jpg", alt: "Looking out at a snowy mountain landscape in New Zealand", region: "New Zealand", location: "Mt. Cook", caption: "A good reminder of just how small we really are", date: "" },
   { image: "assets/images/adventures/bangkok-temple.jpg", alt: "In front of a temple in Bangkok, Thailand", region: "Thailand", location: "Bangkok", caption: "Between the temples, street food, and chaos, Bangkok won me over", date: "" },
-  { image: "assets/images/adventures/phi-phi.jpg", alt: "Overlooking the Phi Phi Islands, Thailand", region: "Thailand", location: "Phi Phi Islands", caption: "A beautiful sunset that made the steep climb worth it.", date: "" },
+  { image: "assets/images/adventures/phi-phi.jpg", alt: "Overlooking the Phi Phi Islands, Thailand", region: "Thailand", location: "Phi Phi Islands", caption: "A beautiful sunset that made the steep climb worth it", date: "" },
   { image: "assets/images/adventures/huka-falls.jpg", alt: "Above a turquoise waterfall in New Zealand", region: "New Zealand", location: "Huka Falls", caption: "Another unplanned stop that turned into a highlight", date: "" },
   { image: "assets/images/adventures/kayaking.jpg", alt: "Kayaking with a group along a rocky coastline", position: "40% center", region: "South Africa", location: "Boulders Beach", caption: "The scenic route came with an arm workout", date: "" }
 ];
