@@ -37,12 +37,39 @@ function createSongRow(song) {
 
 songList.innerHTML = songs.map(createSongRow).join("");
 
-// Clicking a play button that has a Spotify URL opens the song in a new tab
+// Clicking a play button opens Spotify's player under that song, so it plays on the page.
+// Only one player is open at a time; clicking the same button again closes it.
+const PLAY_ICON = '<path d="M8 5v14l11-7z" />';
+const CLOSE_ICON = '<path d="M6 6l12 12M18 6L6 18" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />';
+
+function closeSongPlayer(song) {
+  song.nextElementSibling?.remove();
+  song.classList.remove("is-playing");
+  const button = song.querySelector(".play-button");
+  button.querySelector("svg").innerHTML = PLAY_ICON;
+  button.setAttribute("aria-expanded", "false");
+}
+
 songList.addEventListener("click", (event) => {
   const button = event.target.closest(".play-button");
-  if (button && button.dataset.url) {
-    window.open(button.dataset.url, "_blank", "noopener");
-  }
+  if (!button || !button.dataset.url) return;
+
+  const song = button.closest(".song");
+  const wasOpen = song.classList.contains("is-playing");
+  songList.querySelectorAll(".song.is-playing").forEach(closeSongPlayer);
+  if (wasOpen) return;
+
+  const trackId = button.dataset.url.split("/track/")[1].split("?")[0];
+  const player = document.createElement("div");
+  player.className = "song-player";
+  player.innerHTML = `<iframe src="https://open.spotify.com/embed/track/${trackId}?theme=0"
+    title="Spotify player" height="80" loading="lazy"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
+  song.after(player);
+  song.classList.add("is-playing");
+  button.querySelector("svg").innerHTML = CLOSE_ICON;
+  button.setAttribute("aria-expanded", "true");
+  player.scrollIntoView({ block: "nearest" });
 });
 
 // Builds the book list for the "What I'm Reading" card.
@@ -186,6 +213,8 @@ document.querySelectorAll(".overlay-scroll").forEach((wrap) => {
   });
 
   window.addEventListener("resize", updateThumb);
+  // Rows can be added later (the song player), which changes the scroll height
+  new MutationObserver(updateThumb).observe(pane, { childList: true });
   updateThumb();
 
   function startDrag(clientY) {

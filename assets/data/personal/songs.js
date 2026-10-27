@@ -31,7 +31,7 @@ const songs = [
     title: "Music Sounds Better With You",
     artist: "Stardust",
     image: "assets/images/songs/music-sounds-better-with-you.jpg",
-    spotifyUrl: ""
+    spotifyUrl: "https://open.spotify.com/track/303ccTay2FiDTZ9fZ2AdBt"
   },
   {
     title: "Carousel",

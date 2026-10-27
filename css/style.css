@@ -605,6 +605,23 @@ a {
   fill: #ffffff;
 }
 
+/* While a song's player is open, keep its close button showing */
+.song.is-playing {
+  background-color: #2a2a2a;
+}
+
+.song.is-playing .play-button {
+  opacity: 1;
+}
+
+/* Spotify's compact player, opened under a song by its play button */
+.song-player iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+}
+
 .song-info {
   display: flex;
   flex-direction: column;
@@ -2155,6 +2172,31 @@ a.poster:focus-visible {
     left: 6px;
     padding: 3px 9px;
     font-size: 0.6875rem;
+  }
+
+  /* Legend moves below the map, centered, with its items side by side.
+     The header's box is dropped so the count stays above the map. */
+  .card-map {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .map-header {
+    display: contents;
+  }
+
+  .visited-count {
+    align-self: flex-end;
+    padding: 14px 18px 12px;
+  }
+
+  .map-legend {
+    order: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 16px;
+    padding: 12px 18px 14px;
   }
 
   .work-section {
