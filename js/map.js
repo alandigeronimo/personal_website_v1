@@ -288,5 +288,5 @@ function drawTravelMap() {
 if (typeof d3 !== "undefined" && typeof topojson !== "undefined") {
   drawTravelMap();
 } else {
-  console.error("map.js: D3 or TopoJSON did not load. Check the <script> paths in journey.html.");
+  console.error("js/map.js: D3 or TopoJSON did not load. Check the <script> paths in journey.html.");
 }

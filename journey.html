@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alan Di Geronimo</title>
-    <link rel="stylesheet" href="style.css?v=pub1" />
+    <link rel="stylesheet" href="css/style.css?v=pub1" />
   </head>
   <body>
     <header class="site-header">
@@ -24,12 +24,12 @@
       <p>I've always believed travel is the spice of life. From new places to unexpected experiences, there's always more to explore.</p>
     </section>
 
-    <!-- The photos are added here by journey.js, using assets/data/personal/adventures.js?v=t100 -->
+    <!-- The photos are added here by js/journey.js, using assets/data/personal/adventures.js?v=t100 -->
     <section class="gallery-section">
       <div class="gallery" id="gallery"></div>
     </section>
 
-    <!-- Interactive travel map. It is drawn by map.js, using the data files loaded below. -->
+    <!-- Interactive travel map. It is drawn by js/map.js, using the data files loaded below. -->
     <section class="map-section" id="map">
       <header class="section-intro">
         <p class="section-label">03 / THE JOURNEY</p>
@@ -53,7 +53,7 @@
         </div>
         <div class="map-container" id="map-container">
           <div class="map-tooltip" id="map-tooltip"></div>
-          <!-- Shown only on the U.S. state map (see map.js) -->
+          <!-- Shown only on the U.S. state map (see js/map.js) -->
           <button class="map-back" id="map-back" type="button" hidden>&larr; Back to World Map</button>
         </div>
       </article>
@@ -75,7 +75,7 @@
     </div>
 
     <script src="assets/data/personal/adventures.js?v=noperiod"></script>
-    <script src="journey.js?v=wrap1"></script>
+    <script src="js/journey.js?v=wrap1"></script>
 
     <!-- D3 draws the map. TopoJSON Client converts the map data into shapes D3 can draw.
          Both libraries are saved in assets/vendor, so the map also works without internet. -->
@@ -86,6 +86,6 @@
     <script src="assets/data/personal/visited-countries.js"></script>
     <script src="assets/data/personal/bucket-list-countries.js?v=norway"></script>
     <script src="assets/data/personal/visited-states.js"></script>
-    <script src="map.js"></script>
+    <script src="js/map.js"></script>
   </body>
 </html>
