@@ -16,5 +16,4 @@ wrangler.toml
 .assetsignore
 
 # Not part of the public site
-.nojekyll
 README.md

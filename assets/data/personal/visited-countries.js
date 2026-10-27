@@ -25,6 +25,7 @@ const visitedCountries = [
   "Canada",
   "Czechia",
   "Denmark",
+  "Dominican Rep.",
   "France",
   "Guatemala",
   "Indonesia",

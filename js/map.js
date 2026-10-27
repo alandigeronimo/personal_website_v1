@@ -1,5 +1,4 @@
 // Draws the interactive world map for the "Around the World" section on the Journey page.
-// (This code used to live in script.js on the Home page.)
 // The map shapes live in assets/data/map/world-110m.js
 // The countries you have visited live in assets/data/personal/visited-countries.js
 // The countries on your bucket list (shown in blue) live in assets/data/personal/bucket-list-countries.js
@@ -288,5 +287,5 @@ function drawTravelMap() {
 if (typeof d3 !== "undefined" && typeof topojson !== "undefined") {
   drawTravelMap();
 } else {
-  console.error("map.js: D3 or TopoJSON did not load. Check the <script> paths in journey.html.");
+  console.error("js/map.js: D3 or TopoJSON did not load. Check the <script> paths in journey.html.");
 }

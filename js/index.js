@@ -16,7 +16,7 @@ function createSongRow(song) {
 
   // Play control only when the song has a Spotify URL (avoids a dead button)
   const playButton = song.spotifyUrl
-    ? `<button class="play-button" type="button" data-url="${song.spotifyUrl}" aria-label="Play ${song.title}">
+    ? `<button class="play-button" type="button" data-url="${song.spotifyUrl}" data-preview="${song.previewUrl || ""}" aria-label="Play ${song.title}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
         </button>`
     : "";
@@ -37,12 +37,50 @@ function createSongRow(song) {
 
 songList.innerHTML = songs.map(createSongRow).join("");
 
-// Clicking a play button that has a Spotify URL opens the song in a new tab
+// Clicking a play button plays the song's 30-second Spotify preview right on the page.
+// Clicking it again pauses; starting another song stops the first one.
+// A song with no preview clip opens on Spotify in a new tab instead.
+const PLAY_ICON = '<path d="M8 5v14l11-7z" />';
+const PAUSE_ICON = '<path d="M7 5h4v14H7zM13 5h4v14h-4z" />';
+const preview = new Audio();
+let playingButton = null;
+
+function showPlayIcon(button, playing) {
+  const song = button.closest(".song");
+  song.classList.toggle("is-playing", playing);
+  button.querySelector("svg").innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
+  const title = song.querySelector(".song-title").textContent;
+  button.setAttribute("aria-label", `${playing ? "Pause" : "Play"} ${title}`);
+}
+
+function stopPreview() {
+  preview.pause();
+  if (playingButton) showPlayIcon(playingButton, false);
+  playingButton = null;
+}
+
+preview.addEventListener("ended", stopPreview);
+
 songList.addEventListener("click", (event) => {
   const button = event.target.closest(".play-button");
-  if (button && button.dataset.url) {
+  if (!button || !button.dataset.url) return;
+
+  if (!button.dataset.preview) {
     window.open(button.dataset.url, "_blank", "noopener");
+    return;
   }
+
+  const wasPlaying = button === playingButton;
+  stopPreview();
+  if (wasPlaying) return;
+
+  preview.src = button.dataset.preview;
+  // If it can't play (or is cut off by a newer click), reset only this song's button
+  preview.play().catch(() => {
+    if (playingButton === button) stopPreview();
+  });
+  playingButton = button;
+  showPlayIcon(button, true);
 });
 
 // Builds the book list for the "What I'm Reading" card.
