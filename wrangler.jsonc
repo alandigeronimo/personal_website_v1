@@ -4,5 +4,7 @@
   "compatibility_date": "2026-10-22",
   "assets": {
     "directory": "./"
-  }
+  },
+  // Needed by `wrangler preview`, which Cloudflare runs for non-main branches (can stay empty)
+  "previews": {}
 }
