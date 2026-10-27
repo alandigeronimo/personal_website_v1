@@ -605,21 +605,13 @@ a {
   fill: #ffffff;
 }
 
-/* While a song's player is open, keep its close button showing */
+/* While a song's preview is playing, keep its pause button showing */
 .song.is-playing {
   background-color: #2a2a2a;
 }
 
 .song.is-playing .play-button {
   opacity: 1;
-}
-
-/* Spotify's compact player, opened under a song by its play button */
-.song-player iframe {
-  display: block;
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
 }
 
 .song-info {

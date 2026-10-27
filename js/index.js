@@ -16,7 +16,7 @@ function createSongRow(song) {
 
   // Play control only when the song has a Spotify URL (avoids a dead button)
   const playButton = song.spotifyUrl
-    ? `<button class="play-button" type="button" data-url="${song.spotifyUrl}" aria-label="Play ${song.title}">
+    ? `<button class="play-button" type="button" data-url="${song.spotifyUrl}" data-preview="${song.previewUrl || ""}" aria-label="Play ${song.title}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
         </button>`
     : "";
@@ -37,39 +37,50 @@ function createSongRow(song) {
 
 songList.innerHTML = songs.map(createSongRow).join("");
 
-// Clicking a play button opens Spotify's player under that song, so it plays on the page.
-// Only one player is open at a time; clicking the same button again closes it.
+// Clicking a play button plays the song's 30-second Spotify preview right on the page.
+// Clicking it again pauses; starting another song stops the first one.
+// A song with no preview clip opens on Spotify in a new tab instead.
 const PLAY_ICON = '<path d="M8 5v14l11-7z" />';
-const CLOSE_ICON = '<path d="M6 6l12 12M18 6L6 18" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />';
+const PAUSE_ICON = '<path d="M7 5h4v14H7zM13 5h4v14h-4z" />';
+const preview = new Audio();
+let playingButton = null;
 
-function closeSongPlayer(song) {
-  song.nextElementSibling?.remove();
-  song.classList.remove("is-playing");
-  const button = song.querySelector(".play-button");
-  button.querySelector("svg").innerHTML = PLAY_ICON;
-  button.setAttribute("aria-expanded", "false");
+function showPlayIcon(button, playing) {
+  const song = button.closest(".song");
+  song.classList.toggle("is-playing", playing);
+  button.querySelector("svg").innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
+  const title = song.querySelector(".song-title").textContent;
+  button.setAttribute("aria-label", `${playing ? "Pause" : "Play"} ${title}`);
 }
+
+function stopPreview() {
+  preview.pause();
+  if (playingButton) showPlayIcon(playingButton, false);
+  playingButton = null;
+}
+
+preview.addEventListener("ended", stopPreview);
 
 songList.addEventListener("click", (event) => {
   const button = event.target.closest(".play-button");
   if (!button || !button.dataset.url) return;
 
-  const song = button.closest(".song");
-  const wasOpen = song.classList.contains("is-playing");
-  songList.querySelectorAll(".song.is-playing").forEach(closeSongPlayer);
-  if (wasOpen) return;
+  if (!button.dataset.preview) {
+    window.open(button.dataset.url, "_blank", "noopener");
+    return;
+  }
 
-  const trackId = button.dataset.url.split("/track/")[1].split("?")[0];
-  const player = document.createElement("div");
-  player.className = "song-player";
-  player.innerHTML = `<iframe src="https://open.spotify.com/embed/track/${trackId}?theme=0"
-    title="Spotify player" height="80" loading="lazy"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
-  song.after(player);
-  song.classList.add("is-playing");
-  button.querySelector("svg").innerHTML = CLOSE_ICON;
-  button.setAttribute("aria-expanded", "true");
-  player.scrollIntoView({ block: "nearest" });
+  const wasPlaying = button === playingButton;
+  stopPreview();
+  if (wasPlaying) return;
+
+  preview.src = button.dataset.preview;
+  // If it can't play (or is cut off by a newer click), reset only this song's button
+  preview.play().catch(() => {
+    if (playingButton === button) stopPreview();
+  });
+  playingButton = button;
+  showPlayIcon(button, true);
 });
 
 // Builds the book list for the "What I'm Reading" card.
@@ -213,8 +224,6 @@ document.querySelectorAll(".overlay-scroll").forEach((wrap) => {
   });
 
   window.addEventListener("resize", updateThumb);
-  // Rows can be added later (the song player), which changes the scroll height
-  new MutationObserver(updateThumb).observe(pane, { childList: true });
   updateThumb();
 
   function startDrag(clientY) {
