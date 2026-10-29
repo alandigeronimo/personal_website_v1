@@ -74,27 +74,6 @@ const workSections = [
     heading: "Post-Banking Projects & AI Skill Development",
     entries: [
       {
-        organization: "Char Fitness Club",
-        role: "",
-        dates: "",
-        description: "",
-        links: [],
-        projects: [],
-        facts: [
-          {
-            bullets: true,
-            items: [
-              {
-                name: "Conducted discovery meetings with my trainer to identify operational inefficiencies that would benefit from automation.",
-                sub: [
-                  "Vibe coded a custom AI-enabled tool using Cursor to streamline client onboarding, scheduling, and administrative workflows."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
         organization: "Claude Academy",
         role: "",
         dates: "",
